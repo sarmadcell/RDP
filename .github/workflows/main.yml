@@ -1,0 +1,48 @@
+<script>
+(function () {
+
+    /* =========================
+       SETTINGS
+       ========================= */
+
+    var START_DELAY = 30; // Start hone ka time: seconds
+    var SCROLL_SPEED = 1; // Scroll speed: 1 = slow, 2 = faster
+    var SCROLL_INTERVAL = 30; // milliseconds
+
+    /* ========================= */
+
+    setTimeout(function () {
+
+        var direction = 1; // 1 = Down, -1 = Up
+
+        function autoScroll() {
+
+            var current = window.pageYOffset;
+            var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+            if (maxScroll <= 0) {
+                setTimeout(autoScroll, 1000);
+                return;
+            }
+
+            // Bottom par pohanch gaya
+            if (current >= maxScroll - 2) {
+                direction = -1;
+            }
+
+            // Top par pohanch gaya
+            if (current <= 2) {
+                direction = 1;
+            }
+
+            window.scrollBy(0, direction * SCROLL_SPEED);
+
+            setTimeout(autoScroll, SCROLL_INTERVAL);
+        }
+
+        autoScroll();
+
+    }, START_DELAY * 1000);
+
+})();
+</script>
